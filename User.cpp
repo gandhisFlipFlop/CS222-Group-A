@@ -1,6 +1,8 @@
 #include "User.h"
 
+/**
+ * This function will be overwritten by Student and Professor classes.
+ */
 void User::viewProfile() const{
-    string Name = name;
-    cout << "Name: " << Name << endl;
+    cout << "Name: " << name << endl;
 }

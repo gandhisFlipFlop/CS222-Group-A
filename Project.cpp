@@ -1,3 +1,10 @@
+/**
+ * The main system, which includes a menu for student, professor, and admin.
+ * 
+ * @author  Shane T. Vest
+ * @date    11/21/2024
+ */
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -5,7 +12,6 @@
 #include "Admin.h"
 #include "Course.h"
 #include "Grade.h"
-
 using namespace std;
 
 /**
@@ -31,19 +37,19 @@ void adminMenu(){
 
         // Adds a student to the system.
         if (choice == 1){
-            Student *student = new Student();
-            admin.addStudent(student);
+            Student student;
+            admin.addStudent(&student);
         }
         // Adds a professor to the system.
         else if (choice == 2){
-            Professor *prof = new Professor();
-            admin.addProfessor(prof);
+            Professor prof;
+            admin.addProfessor(&prof);
 
         }
         // Add a new course.
         else if (choice == 3){
-            Course *newCourse = new Course();
-            admin.addCourse(newCourse);
+            Course newCourse;
+            admin.addCourse(&newCourse);
         }
         // Lists all students in system.
         else if (choice == 4){
@@ -80,15 +86,18 @@ void studentMenu(){
         "Please enter your choice (1-4): ";
 
         cin >> choice;
-
+        // Student enrolls in a course.
         if (choice == 1){
-            //student.enrollInCourse();
+            Course course;
+            student.enrollInCourse(&course);
         }
-        else if (choice == 2)
+        else if (choice == 2)   // Lists all the courses the student's enrolled in.
             student.viewCourses();
         else if (choice == 3)
-            student.viewGrades();
-
+            student.viewGrades();// Views all the student's grades.
+        else if (choice == 4)   // Exits the student menu.
+            cout << "Exiting student menu...\n";
+    // Makes sure the menu repeats as long as 4 is not entered.
     }while (choice != 4);
 }
 
@@ -96,7 +105,7 @@ void studentMenu(){
  * This is the Professor menu
  */
 void professorMenu(){
-    Professor prof;
+    Professor prof; // The professor object.
     int choice;
 
     do{
@@ -109,11 +118,16 @@ void professorMenu(){
         cin >> choice;
 
         if (choice == 1){
-            //prof.assignGrade(Student* student, string courseCode, double grade);
+            // Variables to assign grades to specific student.
+            // May change later to decide between AVAILABLE students.
+            Student student;
+            string courseCode;  // 
+            double grade;   // The grade to be assigned.
+            prof.assignGrade(&student, courseCode, grade);
         }
-        else if (choice == 2)
+        else if (choice == 2)   // Views the courses the professor is enrolled in.
             prof.viewCourses();
-        else if (choice == 3)
+        else if (choice == 3)   // Exits the professor menu.
             cout << "Exiting Professor menu...\n";
 
     }while (choice != 3);
@@ -135,18 +149,19 @@ void mainMenu(){
         "Please enter your choice (1-4): ";
 
         cin >> choice;
-        if (choice == 1)
+        if (choice == 1)    // Select the admin menu.
             adminMenu();
-        else if (choice == 2)
+        else if (choice == 2)   // Select the student menu.
             studentMenu();
-        else if (choice == 3)
+        else if (choice == 3)   // Select the professor menu.
             professorMenu();
-        else if (choice == 4)
+        else if (choice == 4)   // Exit the main menu.
             cout << "Exiting Main Menu...\n";
     }while (choice != 4);
 }
 
 int main(){
+    // Title of the program.
     cout << "Welcome to the Student Management System\n";
     mainMenu();
 
