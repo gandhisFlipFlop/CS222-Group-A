@@ -5,7 +5,6 @@ void Admin::addStudent(Student* student){
     string name;
     cout << "Enter student name: ";
     cin >> name;
-
     students.push_back(student);
 
     cout << "Student " << name << " added successfully.\n";
@@ -20,7 +19,7 @@ void Admin::addProfessor(Professor* professor){
 }
 
 /**
- * Adds a course to the list of courese.
+ * Adds a course to the list of course.
  * 
  * @param course    The course that is to be added.
  */
