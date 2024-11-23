@@ -1,3 +1,9 @@
+/**
+* The function that represents a user, whether professor, admin, or student.
+* 
+* @author    Shane T. Vest    
+* @date      11/23/2024
+*/
 #include "User.h"
 
 /**
