@@ -34,6 +34,7 @@ void adminMenu(){
         "Please enter your choice (1-7): ";
 
         cin >> choice;
+        cin.ignore(); // Ignores the newline character.
 
         // Adds a student to the system.
         if (choice == 1){
