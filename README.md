@@ -38,7 +38,7 @@ Classes to Implement:
                 void viewCourses() const: View all courses the student is enrolled in.
                 void viewGrades() const: View grades for all enrolled courses.
                 void viewProfile() const override: Display the student’s profile.
-            Professor Class (Inherits from User):
+    Professor Class (Inherits from User):
         Attributes:
         std::vector<Course*> taughtCourses: List of courses the professor is teaching.
             Methods:
