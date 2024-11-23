@@ -64,6 +64,7 @@ void Admin::listCourses() const{
 /**
  * Views the profile of the admin.
  */
-void Admin::viewProfile() const{
-
+void Admin::viewProfile() const {
+    cout << "Name: " << name << endl;
+    cout << "Role: Admin" << endl;
 }
