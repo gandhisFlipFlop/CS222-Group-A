@@ -2,11 +2,10 @@
 #include <string>
 
 void Admin::addStudent(Student* student){
-    string name;
     cout << "Enter student name: ";
-    cin >> name;
+    cin >> name; // This is the student's name.
+    cin.ignore(); // Ignores the newline character.
     students.push_back(student);
-
     cout << "Student " << name << " added successfully.\n";
 }
 
