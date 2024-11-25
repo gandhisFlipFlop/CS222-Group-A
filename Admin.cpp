@@ -3,9 +3,9 @@
 
 void Admin::addStudent(Student* student){
     cout << "Enter student name: ";
-    cin >> name; // This is the student's name.
+    cin >> name; 
     cin.ignore(); // Ignores the newline character.
-    User::name = name;
+    User::name = name; //doesn't work as intended, need to use helper functions to change specific instance variables -- this changes the entire User class name
     students.push_back(student);
     cout << "Student " << name << " added successfully.\n";
 }
