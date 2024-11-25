@@ -5,6 +5,7 @@ void Admin::addStudent(Student* student){
     cout << "Enter student name: ";
     cin >> name; // This is the student's name.
     cin.ignore(); // Ignores the newline character.
+    User::name = name;
     students.push_back(student);
     cout << "Student " << name << " added successfully.\n";
 }
@@ -14,6 +15,8 @@ void Admin::addProfessor(Professor* professor){
     Professor prof = *professor;
     cout << "Enter professor name: ";
     getline(cin >> ws, profName);
+    User::name = profName;
+    professors.push_back(professor);
 
 }
 
