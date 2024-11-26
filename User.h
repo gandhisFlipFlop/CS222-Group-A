@@ -3,6 +3,9 @@
 
 /**
  * Base user class, inherited by Student, Professor, and Admin.
+ * 
+ * @author  Shane T. Vest
+ * @date    11/21/2024
  */
 #include <iostream>
 using namespace std;
