@@ -38,19 +38,16 @@ void adminMenu(){
 
         // Adds a student to the system.
         if (choice == 1){
-            Student student;
-            admin.addStudent(&student);
+            admin.addStudent(new Student);
         }
         // Adds a professor to the system.
         else if (choice == 2){
-            Professor prof;
-            admin.addProfessor(&prof);
+            admin.addProfessor(new Professor);
 
         }
         // Add a new course.
         else if (choice == 3){
-            Course newCourse;
-            admin.addCourse(&newCourse);
+            admin.addCourse(new Course);
         }
         // Lists all students in system.
         else if (choice == 4){
