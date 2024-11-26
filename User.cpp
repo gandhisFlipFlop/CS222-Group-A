@@ -13,12 +13,14 @@ void User::viewProfile() const{
     cout << "Name: " << name << endl;
 }
 
+// Marks work.
 /*
 void User::setName(string n){
     this->name = n;
 }
 */
 
+// Mark's work.
 /*
 string User::getName() const{
     return name;
