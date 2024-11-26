@@ -10,7 +10,7 @@
 #include <iostream>
 using namespace std;
 class User{
-    protected:
+    public:
         // The name of the person this class is for.
         // Whether or not it's declared private, public, or protected has not been decided yet.
         string name;
