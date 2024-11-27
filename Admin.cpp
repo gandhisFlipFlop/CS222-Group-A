@@ -1,21 +1,33 @@
 #include "Admin.h"
 #include <string>
 
+/**
+ * The function `addStudent` in the Admin class adds a student to a list of students with a given name.
+ * 
+ * @param student The `student` parameter in the `addStudent` method is a pointer to an object of type
+ * `Student`.
+ */
 void Admin::addStudent(Student* student){
     cout << "Enter student name: ";
     cin >> name; 
     cin.ignore(); // Ignores the newline character.
-    User::name = name; //doesn't work as intended, need to use helper functions to change specific instance variables -- this changes the entire User class name
+    student->name = name;
     students.push_back(student);
     cout << "Student " << name << " added successfully.\n";
 }
 
+/**
+ * The function `addProfessor` in the Admin class allows for adding a new Professor object to a list of
+ * professors with a specified name.
+ * 
+ * @param professor The `professor` parameter is a pointer to an object of type `Professor`.
+ */
 void Admin::addProfessor(Professor* professor){
     string profName;
     Professor prof = *professor;
     cout << "Enter professor name: ";
     getline(cin >> ws, profName);
-    User::name = profName;
+    prof.name = profName;
     professors.push_back(professor);
 
 }
