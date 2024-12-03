@@ -167,26 +167,35 @@ void professorMenu(){
             // Select a student in the course you teach.
             do{
                 cout << "Students in the course\n";
-                for (int i = 0; i < prof.taughtCourses[courseChoice -1]->enrolledStudents.size(); i++){
-                    cout << i + 1 << ". ";
-                    prof.taughtCourses[courseChoice -1]->enrolledStudents[i]->viewProfile();
+                // If there are no students enrolled in the course.
+                if (prof.taughtCourses[courseChoice -1]->enrolledStudents.size() == 0){
+                    cout << "No students in this class.\n";
+                    break;
                 }
-                cout << "Select student (list number): ";
-                cin >> studentChoice;
+                else{
+                    for (int i = 0; i < prof.taughtCourses[courseChoice -1]->enrolledStudents.size(); i++){
+                        cout << i + 1 << ". ";
+                        prof.taughtCourses[courseChoice -1]->enrolledStudents[i]->viewProfile();
+                    }
+                    cout << "Select student (list number): ";
+                    cin >> studentChoice;
+                }
+                
             }while (studentChoice > prof.taughtCourses[courseChoice -1]->enrolledStudents.size() || studentChoice < 0);
+            // Adds student if there IS a student to select.
+            if (prof.taughtCourses[courseChoice -1]->enrolledStudents.size() > 0){
+                // May change later.
+                student = *prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1];
 
-            // May change later.
-            student = *prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1];
+                // Now assign grade!
+                cout << "Total information\n";
+                prof.taughtCourses[courseChoice-1]->displayCourseDetails();
+                student.viewProfile();
+                cout << "Which grade do you want to assign for this student?: ";
+                cin >> grade;
 
-            // Now assign grade!
-            cout << "Total information\n";
-            prof.taughtCourses[courseChoice-1]->displayCourseDetails();
-            student.viewProfile();
-            cout << "Which grade do you want to assign for this student?: ";
-            cin >> grade;
-
-            //prof.assignGrade(&student, courseCode, grade);
-            prof.assignGrade(prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1], courseCode, grade);
+                prof.assignGrade(prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1], courseCode, grade);
+            }
         }
         else if (choice == 2)   // Views the courses the professor is enrolled in.
             prof.viewCourses();
