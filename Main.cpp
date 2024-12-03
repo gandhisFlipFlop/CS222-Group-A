@@ -14,12 +14,14 @@
 #include "Grade.h"
 using namespace std;
 
+// Declare admin outside.
+Admin admin;
+
 /**
  * This is the menu for Admin.
  * Allows for admin's prompts.
  */
 void adminMenu(){
-    Admin admin;
     int choice;
 
     do{
@@ -34,33 +36,25 @@ void adminMenu(){
         "Please enter your choice (1-7): ";
 
         cin >> choice;
-        cin.ignore(); // Ignores the newline character.
 
         // Adds a student to the system.
-        if (choice == 1){
+        if (choice == 1)
             admin.addStudent(new Student);
-        }
         // Adds a professor to the system.
-        else if (choice == 2){
+        else if (choice == 2)
             admin.addProfessor(new Professor);
-
-        }
         // Add a new course.
-        else if (choice == 3){
+        else if (choice == 3)
             admin.addCourse(new Course);
-        }
         // Lists all students in system.
-        else if (choice == 4){
+        else if (choice == 4)
             admin.listStudents();
-        }
         // Lists all professors in system.
-        else if (choice == 5){
+        else if (choice == 5)
             admin.listProfessors();
-        }
-        // Lists all courses in system.
-        else if (choice == 6){
+        // Lists all courses in system.s
+        else if (choice == 6)
             admin.listCourses();
-        }
         // Exits system.
         else if (choice == 7)
             cout << "Exiting Admin menu...\n";
@@ -72,9 +66,21 @@ void adminMenu(){
  * This is the student menu
  */
 void studentMenu(){
-    Student student;
+    //Student student;
     int choice;
+    int studentChoice;
 
+    // Lists the students, allows user to select a choice based on listing number.
+    do{
+        cout << "Students\n";
+        admin.listStudents();
+        cout << "Enter list number next to your student name: ";
+        cin >> studentChoice;
+    }while (studentChoice > admin.students.size());
+    // Prints the student that was found. 
+    cout << "Student found: " << admin.students[studentChoice - 1]->name << endl;
+
+    // Prompts the main menu after finding the student.
     do{
         cout << "\nStudent Menu\n" <<
         "1. Enroll in a course\n" << 
@@ -87,12 +93,21 @@ void studentMenu(){
         // Student enrolls in a course.
         if (choice == 1){
             Course course;
-            student.enrollInCourse(&course);
+            int courseChoice;
+            // Prints courses listed inside of Admin's registry. 
+            do{
+                cout << "Courses\n";
+                admin.listCourses();
+                cout << "Enter list number of course: ";
+                cin >> courseChoice;
+            }while (courseChoice > admin.courses.size());
+            admin.students[studentChoice -1]->enrollInCourse(admin.courses[courseChoice -1]);   // Adds course to student's enrolled list.
+            admin.courses[courseChoice -1]->addStudent(admin.students[studentChoice -1]);       // Adds student to course's list of students.
         }
         else if (choice == 2)   // Lists all the courses the student's enrolled in.
-            student.viewCourses();
+            admin.students[studentChoice -1]->viewCourses();
         else if (choice == 3)
-            student.viewGrades();// Views all the student's grades.
+            admin.students[studentChoice -1]->viewGrades();// Views all the student's grades.
         else if (choice == 4)   // Exits the student menu.
             cout << "Exiting student menu...\n";
     // Makes sure the menu repeats as long as 4 is not entered.
@@ -105,7 +120,17 @@ void studentMenu(){
 void professorMenu(){
     Professor prof; // The professor object.
     int choice;
-
+    int profChoice;
+    // Allows professor to select their name. 
+    do{
+        cout << "Professors\n";
+        admin.listProfessors();
+        cout << "Which professor are you? (Select number): ";
+        cin >> profChoice;
+    }while (profChoice > admin.professors.size());
+    // Assigns professor. 
+    prof = *admin.professors[profChoice - 1];
+    // Lists the professor's options. 
     do{
         cout << "\nProfessor Menu\n" <<
         "1. Assign grades to students\n" << 
@@ -115,13 +140,53 @@ void professorMenu(){
 
         cin >> choice;
 
-        if (choice == 1){
+        if (choice == 1){   // Assign grade to student.
             // Variables to assign grades to specific student.
             // May change later to decide between AVAILABLE students.
             Student student;
-            string courseCode;  // 
+            string courseCode;
             double grade;   // The grade to be assigned.
-            prof.assignGrade(&student, courseCode, grade);
+            int courseChoice;
+            int studentChoice;
+
+            // Select one of the courses you teach!
+            do{
+                cout << "Courses you teach\n";
+                prof.viewCourses();
+                cout << "Enter list of course for grading: ";
+                cin >> courseChoice;
+
+            }while (courseChoice > prof.taughtCourses.size() || courseChoice < 0);   // Makes sure the courses stay in bounds.
+
+            // Prints to verify the course you selected.
+            cout << "Course ";
+            prof.taughtCourses[courseChoice -1]->displayCourseDetails();
+            cout << " selected.\n";
+            courseCode = prof.taughtCourses[courseChoice -1]->courseCode;   // Gets the course code.
+
+            // Select a student in the course you teach.
+            do{
+                cout << "Students in the course\n";
+                for (int i = 0; i < prof.taughtCourses[courseChoice -1]->enrolledStudents.size(); i++){
+                    cout << i + 1 << ". ";
+                    prof.taughtCourses[courseChoice -1]->enrolledStudents[i]->viewProfile();
+                }
+                cout << "Select student (list number): ";
+                cin >> studentChoice;
+            }while (studentChoice > prof.taughtCourses[courseChoice -1]->enrolledStudents.size() || studentChoice < 0);
+
+            // May change later.
+            student = *prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1];
+
+            // Now assign grade!
+            cout << "Total information\n";
+            prof.taughtCourses[courseChoice-1]->displayCourseDetails();
+            student.viewProfile();
+            cout << "Which grade do you want to assign for this student?: ";
+            cin >> grade;
+
+            //prof.assignGrade(&student, courseCode, grade);
+            prof.assignGrade(prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1], courseCode, grade);
         }
         else if (choice == 2)   // Views the courses the professor is enrolled in.
             prof.viewCourses();
@@ -139,13 +204,13 @@ void mainMenu(){
     int choice;
 
     do{
+        // Main menu.
         cout << "\nMain Menu\n"
         "1. Admin Menu\n" << 
         "2. Student Menu\n" << 
         "3. Professor Menu\n" <<
         "4. Exit\n" <<
         "Please enter your choice (1-4): ";
-
         cin >> choice;
         if (choice == 1)    // Select the admin menu.
             adminMenu();
@@ -158,6 +223,9 @@ void mainMenu(){
     }while (choice != 4);
 }
 
+/**
+ * The main program that executes all the code. 
+ */
 int main(){
     // Title of the program.
     cout << "Welcome to the Student Management System\n";
