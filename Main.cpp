@@ -24,7 +24,9 @@ Admin admin;
 void adminMenu(){
     int choice;
 
+    // Do-while, so that it loops until you exit.
     do{
+        // Admin's menu printed.
         cout << "\nAdmin Menu\n" <<
         "1. Add a student\n" << 
         "2. Add a professor\n" << 
@@ -59,7 +61,7 @@ void adminMenu(){
         else if (choice == 7)
             cout << "Exiting Admin menu...\n";
         
-    }while (choice != 7);
+    }while (choice != 7);   // 7 means exit.
 }
 
 /**
@@ -183,18 +185,13 @@ void professorMenu(){
                 
             }while (studentChoice > prof.taughtCourses[courseChoice -1]->enrolledStudents.size() || studentChoice < 0);
             // Adds student if there IS a student to select.
+            Grade<double> newGrade;
             if (prof.taughtCourses[courseChoice -1]->enrolledStudents.size() > 0){
                 // May change later.
                 student = *prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1];
-
-                // Now assign grade!
-                cout << "Total information\n";
-                prof.taughtCourses[courseChoice-1]->displayCourseDetails();
-                student.viewProfile();
-                cout << "Which grade do you want to assign for this student?: ";
-                cin >> grade;
-
-                prof.assignGrade(prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1], courseCode, grade);
+                
+                // 
+                prof.assignGrade(prof.taughtCourses[courseChoice -1]->enrolledStudents[studentChoice -1], courseCode, new Grade<double>);
             }
         }
         else if (choice == 2)   // Views the courses the professor is enrolled in.
@@ -203,7 +200,7 @@ void professorMenu(){
             cout << "Exiting Professor menu...\n";
 
     }while (choice != 3);
-}
+} 
 
 /**
  * The main menu of the program.
