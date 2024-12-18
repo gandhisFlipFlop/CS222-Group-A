@@ -40,12 +40,23 @@ void Admin::addProfessor(Professor* professor){
 void Admin::addCourse(Course* course){
     string name;
     string code;
-    string professor;
 
     cout << "Enter course name: ";
     cin >> name;
     cout << "Enter course code: ";
     cin >> code;
+    cout << "Please assign a professor to this course.\n";
+    for (int i = 0; i < professors.size(); i++){
+        cout << i + 1 << ". ";
+        professors[i]->viewProfile();
+    }
+    int choice;
+    cout << "Select professor (list number): ";
+    cin >> choice;
+    course->courseName = name;
+    course->courseCode = code;
+    course->professor = professors[choice - 1];
+    professors[choice - 1]->taughtCourses.push_back(course);
 
     // Add course to list of courses.
     courses.push_back(course);
