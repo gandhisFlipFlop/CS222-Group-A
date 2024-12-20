@@ -6,16 +6,20 @@
 #include "Course.h"
 #include <map>
 #include <vector>
+using std::vector;
+using namespace std;
 
-class Professor : public User{
-    private:
-        vector<Course*> taughtCourses;
+class Professor : public User {
+private:
+    vector<Course*> taughtCourses;
 
-        
-    public:
-        void assignGrade(Student* student, string courseCode, double grade);
-        void viewCourses() const;
-        void viewProfile() const override;
+public:
+    Professor(const string& name);
+    const vector<Course*>& getTaughtCourses() const;
+    void viewProfile() const override;
+    void assignGrade(Student* student, string courseCode, double grade);
+    void viewCourses() const;
+    void viewProfile() const override;
 
 };
 
