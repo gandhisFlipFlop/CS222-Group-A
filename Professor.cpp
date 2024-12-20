@@ -5,7 +5,7 @@ using std::vector;
 using namespace std;
 
 
-Professor::Professor(const string& name) {}
+Professor::Professor() {}
 const vector<Course*>& Professor::getTaughtCourses() const
 {
     return taughtCourses;
