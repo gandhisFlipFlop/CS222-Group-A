@@ -10,14 +10,13 @@
 using namespace std;
 
 class Admin : public User{
-    private:
+    public:
         // List of all students.
         vector<Student*> students;
         // List of all professors.
         vector<Professor*> professors;
         // List of all courses.
         vector<Course*> courses;
-    public:
         void addStudent(Student* student);
 
         void addProfessor(Professor* professor);
