@@ -9,7 +9,7 @@
 class Course;
 
 class Student : public User{
-    private:
+    public:
         vector<Course*> enrolledCourses;
         map<string, double> grades;
     public:
