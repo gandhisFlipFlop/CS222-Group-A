@@ -6,7 +6,7 @@ using namespace std;
 
 template<typename T>
 class Grade{
-    private:
+    public:
         T grade;
         string gradeType;
     public:
