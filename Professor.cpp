@@ -1,42 +1,55 @@
+/**
+ * Represents a single professor.
+ *
+ * @author  Evalee R. Meyer
+ * @date    12/222024
+ */
+
 #include "Professor.h"
+#include "Student.h"
+#include "Grade.h"
 #include <iostream>
-#include <string>
-using std::vector;
 using namespace std;
+ /**
+  * Assigns a grade to a student for a specific course.
+  *
+  * @param student      The student to assign the grade.
+  * @param courseCode   The course in which the grade is assigned.
+  * @param grade        The grade object.
+  */
 
+void Professor::assignGrade(Student* student, const string& courseCode, Grade<double>* grade) {
+    // Default grade type; can be updated.
+    grade->gradeType = "Assignment"; 
+    cout << "Enter grade (percentage): ";
+    cin >> grade->grade;
 
-Professor::Professor() {}
-const vector<Course*>& Professor::getTaughtCourses() const
-{
-    return taughtCourses;
+    // Add the grade to the student's grades map.
+    student->grades[courseCode].push_back(*grade);
+
+    cout << "Grade " << grade->grade << "% assigned to " << student->name
+        << " in course " << courseCode << ".\n";
 }
-void Professor::viewProfile() const
-{
-    cout << "Professor Name: " << name << endl;
-    cout << "Number of courses taught: " << taughtCourses.size() << endl;
 
-    if (!taughtCourses.empty())
-    {
-        cout << "Courses taught: ";
-        for (size_t i = 0; i < taughtCourses.size(); ++i)
-        {
-            if (i > 0) cout << ", ";
-            taughtCourses[i]->displayCourseDetails();
-        }
-        cout << endl;
+/**
+ * Prints all the courses the professor is teaching.
+ */
+void Professor::viewCourses() const {
+    if (taughtCourses.empty()) {
+        cout << "You are not teaching any courses.\n";
+        return;
     }
-}
-void Professor::assignGrade(Student* student, string courseCode, double grade) {
-    string code = courseCode;
-    double newGrade = grade;
-    Student* stud = student;
 
-    stud->newGrade(code, newGrade);
-    cout << "Grade " << newGrade << " assigned to " << stud->getName() << " for course " << code << ".\n";
-}
-void Professor::viewCourses() const 
-{
-    for (int i = 0; i < taughtCourses.size(); i++) {
+    cout << "Courses you teach:\n";
+    for (size_t i = 0; i < taughtCourses.size(); ++i) {
+        cout << i + 1 << ". ";
         taughtCourses[i]->displayCourseDetails();
     }
+}
+
+/**
+ * Displays the professor's profile.
+ */
+void Professor::viewProfile() const {
+    cout << "Professor: " << name << endl;
 }
