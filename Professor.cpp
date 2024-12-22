@@ -2,7 +2,7 @@
  * Represents a single professor.
  *
  * @author  Evalee R. Meyer
- * @date    12/222024
+ * @date    12/22/2024
  */
 
 #include "Professor.h"
