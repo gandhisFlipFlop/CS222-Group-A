@@ -10,12 +10,12 @@
 using namespace std;
 
 
-void Student::enrollInCourse(Course* course){ //Enroll the student in a course.
+void Student::enrollInCourse(Course* course){ 
     
     enrolledCourses.push_back(course);
-    cout << "Successfully enrolled in course.\n";}
+    cout << "Enrolled in the course.\n";}
 
-void Student::viewCourses() const { //View all courses the student is enrolled in.
+void Student::viewCourses() const { 
 
     if (enrolledCourses.empty()) {
         cout << "Not enrolled in any courses.\n";
