@@ -11,7 +11,7 @@ class Course;
 class Student : public User{
     public:
         vector<Course*> enrolledCourses;
-        map<string, double> grades;
+        map<string, vector<Grade<double>>> grades;
     public:
         void enrollInCourse(Course* course);
         void viewCourses() const;
