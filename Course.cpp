@@ -15,6 +15,8 @@ void Course::addStudent(Student* student) {
 
 void Course::assignProfessor(Professor* professor) {
    
+this->professor = professor;
+
 }
 
 void Course::displayCourseDetails() const {
