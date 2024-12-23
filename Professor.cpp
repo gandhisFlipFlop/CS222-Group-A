@@ -21,7 +21,12 @@ using namespace std;
 // Shane: I just fixed the courseCode parameter, that's all.
 void Professor::assignGrade(Student* student, string courseCode, Grade<double>* grade) {
     // Default grade type; can be updated.
-    grade->gradeType = "Assignment"; 
+    //grade->gradeType = "Assignment"; 
+    
+    // Shane (12/22/2024) Implementation of grade type. Rest is done by Evalee.
+    cout << "Enter assignment type name: ";
+    cin >> grade->gradeType;
+
     cout << "Enter grade (percentage): ";
     cin >> grade->grade;
 
