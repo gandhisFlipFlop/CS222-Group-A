@@ -1,3 +1,9 @@
+#include "Professor.h"
+#include "Student.h"
+#include "Grade.h"
+#include "Course.h"
+#include "User.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
