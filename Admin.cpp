@@ -9,8 +9,7 @@
  */
 void Admin::addStudent(Student* student){
     cout << "Enter student name: ";
-    cin >> name; 
-    cin.ignore(); // Ignores the newline character.
+    getline(cin >> ws, name);
     student->name = name;
     students.push_back(student);
     cout << "Student " << name << " added successfully.\n";
@@ -24,10 +23,9 @@ void Admin::addStudent(Student* student){
  */
 void Admin::addProfessor(Professor* professor){
     string profName;
-    Professor prof = *professor;
     cout << "Enter professor name: ";
     getline(cin >> ws, profName);
-    prof.name = profName;
+    professor->name = profName;
     professors.push_back(professor);
 
 }
@@ -43,18 +41,30 @@ void Admin::addCourse(Course* course){
 
     cout << "Enter course name: ";
     cin >> name;
+    course->courseName = name;
     cout << "Enter course code: ";
     cin >> code;
-    cout << "Please assign a professor to this course.\n";
-    for (int i = 0; i < professors.size(); i++){
-        cout << i + 1 << ". ";
-        professors[i]->viewProfile();
-    }
-    int choice;
-    cout << "Select professor (list number): ";
-    cin >> choice;
-    course->courseName = name;
     course->courseCode = code;
+
+    int choice;
+    cout << "Please assign a professor to this course.\n";
+    if (professors.size() == 0){
+        addProfessor(new Professor);
+        course->professor = professors[0];
+        professors[0]->taughtCourses.push_back(course);
+        courses.push_back(course);
+        return;
+    }
+    
+    do{
+        for (int i = 0; i < professors.size(); i++){
+            cout << i + 1 << ". ";
+            professors[i]->viewProfile();
+        }
+        cout << "Select professor (list number): ";
+        cin >> choice;
+    }while (choice < 0 || choice > professors.size());
+    
     course->professor = professors[choice - 1];
     professors[choice - 1]->taughtCourses.push_back(course);
 

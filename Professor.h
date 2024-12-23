@@ -1,47 +1,47 @@
 /**
- * Represents a single professor.
- *
- * @author  Evalee R. Meyer
- * @date    12/22/2024
+ * Represents a single professor, declaration of class methods.
+ * 
+ * @author  Shane T. Vest
+ * @date    12/16/2024
  */
 
 #ifndef PROFESSOR_H
 #define PROFESSOR_H
 
 #include "User.h"
+#include "Student.h"
 #include "Course.h"
 #include "Grade.h"
-#include "Student.h"
+#include <iostream>
+#include <map>
 #include <vector>
-#include <string>
-using namespace std;
+#include <list>
 
-class Course;
-class Student;
+class Professor : public User{
+    public:
+        vector<Course*> taughtCourses;
+        
+    public:
+        //void assignGrade(Student* student, string courseCode, double grade);
+        /**
+         * Assigns a grade to a student.
+         * 
+         * @param   student     The student being assigned.
+         * @param   courseCode  The course number for the student.
+         * @param   grade       The grade that is being assigned.
+         */
+        void assignGrade(Student* student, string courseCode, Grade<double>* grade);
 
-class Professor : public User {
-public:
-    // List of courses the professor teaches.
-    vector<Course*> taughtCourses; 
+        /**
+         * Prints out the courses the student's enrolled in.
+         */
+        void viewCourses() const;
 
-    /**
-     * Assigns a grade to a student for a specific course.
-     *
-     * @param student      The student to assign the grade.
-     * @param courseCode   The course in which the grade is assigned.
-     * @param grade        The grade object.
-     */
-    void assignGrade(Student* student, const string& courseCode, Grade<double>* grade);
+        /**
+         * Prints out the user's information.
+         */
+        void viewProfile() const override;
 
-    /**
-     * Prints all the courses the professor is teaching.
-     */
-    void viewCourses() const;
-
-    /**
-     * Displays the professor's profile.
-     */
-    void viewProfile() const override;
 };
 
 #endif
