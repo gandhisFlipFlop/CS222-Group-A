@@ -62,5 +62,3 @@ void Student::viewProfile() const override { //Display the student’s profile.
     cout << "Enrolled Courses: " << enrolledCourses.size() << endl;
 
 }
-
-};
