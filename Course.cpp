@@ -1,18 +1,47 @@
+#include "Course.h"
+#include "Student.h"
+#include "Professor.h"
 #include <iostream>
-#include <string>
-#include <vector>
+
 using namespace std;
 
-class Course {
-    private:
-        string courseName;
-        string courseCode;
-        Professor* professor;
-        vector<Student*> enrolledStudents;
 
-    public:
-        void addStudent(Student* student){}  // Add a student to the course.
-        void assignProfessor(Professor* professor){}  // Assign a professor to the course.
-        void displayCourseDetails() const {}  // Display course details, including name, code, and professor.
+void Course::addStudent(Student* student) {
+    for (Student* existingStudent : enrolledStudents) {
+        if (existingStudent == student) {
+            cout << "Student " << student->name << " is already enrolled in this course.\n";
+            return;
+        }
+    }
+    
+    enrolledStudents.push_back(student);
+    cout << "Student " << student->name << " has been enrolled in " << courseName << ".\n";
+}
 
-};
+
+void Course::assignProfessor(Professor* professor) {
+    this->professor = professor;
+    bool courseFound = false;
+    for (Course* course : professor->taughtCourses) {
+        if (course == this) {
+            courseFound = true;
+            break;
+        }
+    }
+    
+    if (!courseFound) {
+        professor->taughtCourses.push_back(this);
+    }
+    
+    cout << "Professor " << professor->name << " has been assigned to teach " << courseName << ".\n";
+}
+
+void Course::displayCourseDetails() const {
+    cout << "Course: " << courseName << " (Code: " << courseCode << ")";
+    if (professor != nullptr) {
+        cout << " - Professor: " << professor->name;
+    } else {
+        cout << " - No professor assigned";
+    }
+    cout << "\nEnrolled Students: " << enrolledStudents.size() << endl;
+}
