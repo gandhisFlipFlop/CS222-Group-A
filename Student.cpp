@@ -9,17 +9,13 @@
 #include <vector>
 using namespace std;
 
-class Student : public User {
-    private:
-        vector<Course*> enrolledCourses 
 
-    public:
-        void enrollInCourse(Course* course){ //Enroll the student in a course.
+        void Student::enrollInCourse(Course* course){ //Enroll the student in a course.
             
             enrolledCourses.push_back(course);
             cout << "Successfully enrolled in course.\n";}
 
-        void viewCourses() const { //View all courses the student is enrolled in.
+        void Student::viewCourses() const { //View all courses the student is enrolled in.
 
             if (enrolledCourses.empty()) {
                 cout << "Not enrolled in any courses.\n";
@@ -34,7 +30,7 @@ class Student : public User {
 
         }
 
-        void viewGrades() const { //View grades for all enrolled courses.
+        void Student::viewGrades() const { //View grades for all enrolled courses.
 
             if (enrolledCourses.empty()) {
                 cout << "You are not enrolled in any courses." << endl;
@@ -58,7 +54,7 @@ class Student : public User {
         }
 
 
-        void viewProfile() const override { //Display the student’s profile.
+        void Student::viewProfile() const override { //Display the student’s profile.
 
             User::viewProfile();   
     
