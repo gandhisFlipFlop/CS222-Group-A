@@ -20,9 +20,6 @@ class User{
          * Allows the user to view its profile information, such as name!
          */
         virtual void viewProfile() const;
-        // The files below belong to Mark.
-        //void setName(string n);
-        //string getName() const;
 };
 
 #endif
