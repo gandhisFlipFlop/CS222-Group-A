@@ -16,9 +16,6 @@
 #include <string>
 using namespace std;
 
-class Course;
-class Student;
-
 class Professor : public User {
 public:
     // List of courses the professor teaches.
