@@ -1,64 +1,72 @@
-#include "Professor.h"
+/**
+ * Definition declaration of the Student class. 
+ * 
+ * @author  Shane T. Vest
+ * @date    12/16/2024
+ */
+
 #include "Student.h"
 #include "Grade.h"
-#include "Course.h"
-#include "User.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
-
-
-void Student::enrollInCourse(Course* course){ 
-    
+/**
+ * Allows a student to enroll in a course from the admin's list.
+ * 
+ * @param   course  A course object, the course the student's enrolling in.
+ */
+void Student::enrollInCourse(Course* course){
     enrolledCourses.push_back(course);
-    cout << "Enrolled in the course.\n";}
-
-void Student::viewCourses() const { 
-
-    if (enrolledCourses.empty()) {
-        cout << "Not enrolled in any courses.\n";
-        return;
-    }
-
-    cout << "Enrolled courses:\n";
-    for (int i = 0; i < enrolledCourses.size(); i++) {
-        cout << i + 1 << ".";
-        enrolledCourses[i]->displayCourseDetails(); << endl;
-    }
-
+    //cout << "Enrolled in course " << course->courseName << course->courseCode << endl;
+    Course newCourse = *enrolledCourses[enrolledCourses.size() - 1];
+    cout << "Enrolled in course ";
+    newCourse.displayCourseDetails();
 }
 
-void Student::viewGrades() const { //View grades for all enrolled courses.
-
-    if (enrolledCourses.empty()) {
-        cout << "You are not enrolled in any courses." << endl;
-        return;
+/**
+ * Prints out all the courses a student is enrolled in.
+ */
+void Student::viewCourses() const{
+    if (enrolledCourses.size() > 0){
+        for (int i = 0; i < enrolledCourses.size(); i++)
+        enrolledCourses[i]->displayCourseDetails();
     }
-    cout << "\nYour Grades:" << endl;
-    cout << "----------------------------------" << endl;
+    else
+        cout << "You are not enrolled in any classes.\n";
+}
 
-    for (Course* course : enrolledCourses) {
-        auto gradeIt = grades.find(course->courseCode);
-        cout << "Course: ";
-        course->displayCourseDetails();
+/**
+ * Prints out all the student's grades in all their classes. 
+ */
+void Student::viewGrades() const{
+    double totalGrade = 0;
+    
+    for (const auto& pair : grades){
+        for (int i = 0; i < pair.second.size(); i++){
+            cout << "Course code: " << pair.first;
 
-        if (gradeIt != grades.end()) {
-            gradeIt->second.displayGrade();  
-        } else {
-            cout << "No grade recorded yet." << endl;
+            // Prints the student's grade.
+            pair.second[i].displayGrade();
+
+            // Gets number for each grade.
+            totalGrade += pair.second[i].grade;
         }
-        cout << "------------------------------" << endl;
+        // Prints the number of graded assignments in this student's class. 
+        //cout << "Number of grades in class: " << pair.second.size() << endl;  
+        cout << "Course code: " << pair.first;
+        totalGrade /= pair.second.size();
+        cout << ", Total grade: " << totalGrade << "%\n" << endl;
+        totalGrade = 0; // Resets the total grade for the other classes. 
     }
+
+    // To handle empty grades.
+    if (grades.size() == 0)
+        cout << "No grades have been assigned!\n";
+    
 }
 
-
-void Student::viewProfile() const override { //Display the student’s profile.
-
-    User::viewProfile();   
-
-    cout << "Role: Student" << endl;
-    cout << "Enrolled Courses: " << enrolledCourses.size() << endl;
-
+/**
+ * Prints out the user's name, or other profile information. 
+ */
+void Student::viewProfile() const{
+    string Name = User::name;
+    cout << "Name: " << name << endl;
 }
