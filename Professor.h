@@ -31,7 +31,8 @@ public:
      * @param courseCode   The course in which the grade is assigned.
      * @param grade        The grade object.
      */
-    void assignGrade(Student* student, const string& courseCode, Grade<double>* grade);
+    // Shane: I fixed the courseCode parameter.
+    void assignGrade(Student* student, string courseCode, Grade<double>* grade);
 
     /**
      * Prints all the courses the professor is teaching.
