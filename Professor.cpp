@@ -18,7 +18,8 @@ using namespace std;
   * @param grade        The grade object.
   */
 
-void Professor::assignGrade(Student* student, const string& courseCode, Grade<double>* grade) {
+// Shane: I just fixed the courseCode parameter, that's all.
+void Professor::assignGrade(Student* student, string courseCode, Grade<double>* grade) {
     // Default grade type; can be updated.
     grade->gradeType = "Assignment"; 
     cout << "Enter grade (percentage): ";
