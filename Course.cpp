@@ -7,20 +7,17 @@ using namespace std;
 
 
 void Course::addStudent(Student* student) {
-    
     enrolledStudents.push_back(student);
     cout << "Student " << student->name << " has been enrolled in " << courseName << ".\n";
 }
 
 
 void Course::assignProfessor(Professor* professor) {
-   
-this->professor = professor;
-
+    this->professor = professor;
 }
 
 void Course::displayCourseDetails() const {
-    cout << "Course: " << courseName << " Code: " << courseCode << endl;
+    cout << "Course: " << courseName << " Code: " << courseCode << " ";
     if (professor != nullptr) {
         cout << "Professor: " << professor->name;
     } else {
