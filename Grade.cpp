@@ -12,7 +12,7 @@
  */
 template<typename T>
 void Grade<T>::displayGrade() const{
-    cout << " Grade type: " << gradeType << "Grade: " << grade << endl;
+    cout << " Grade type: " << gradeType << " Grade: " << grade << endl;
 }
 
 /**
@@ -20,5 +20,5 @@ void Grade<T>::displayGrade() const{
  */
 template<>
 void Grade<double>::displayGrade() const{
-    cout << " Grade type: " << gradeType << "Grade: " << grade  << "%"<< endl;
+    cout << " Grade type: " << gradeType << " Grade: " << grade  << "%"<< endl;
 }
